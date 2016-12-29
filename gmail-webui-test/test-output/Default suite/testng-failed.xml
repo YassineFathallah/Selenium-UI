@@ -5,6 +5,8 @@
     <classes>
       <class name="GmailSignInTest">
         <methods>
+          <include name="gmailSendAndReceiveEmailTest"/>
+          <include name="tearDown"/>
           <include name="gmailLoginSuccessful"/>
         </methods>
       </class> <!-- GmailSignInTest -->
