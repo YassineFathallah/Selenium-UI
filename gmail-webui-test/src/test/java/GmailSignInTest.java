@@ -59,7 +59,7 @@ public class GmailSignInTest {
     wait.until(ExpectedConditions.visibilityOfElementLocated(SIGN_IN));
   }
   
-  @Test(dependsOnMethods={"gmailLoginSuccessful"})
+  /*@Test(dependsOnMethods={"gmailLoginSuccessful"})
   public void gmailSendAndReceiveEmailTest(){
     //create Webdriver
     driver = new FirefoxDriver();
@@ -111,7 +111,7 @@ public class GmailSignInTest {
     verif_sender.click();
     WebElement verif_objet = driver.findElement(OBJET_VERIF);
     assertEquals("Selenium Test", verif_objet.getText());
-  }
+  }*/
   
   @AfterMethod
   public void tearDown(){
