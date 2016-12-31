@@ -1,4 +1,3 @@
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.By;
@@ -8,9 +7,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
+
+import pom.GmailHomePage;
+import pom.GmailLoginPage;
+import utils.WebUtils;
 
 public class GmailSignInTest {
 
@@ -31,32 +32,18 @@ public class GmailSignInTest {
     //create Webdriver
     driver = new FirefoxDriver();
     
-    // go to gmail website
-    driver.get("http://www.gmail.com");
-    driver.manage().window().maximize();
+    WebUtils util = new WebUtils();
+    GmailLoginPage loginPage = util.goToLoginPage(driver, "http://www.gmail.com");
+    assertTrue(loginPage.isAtPage(driver));
+    loginPage.fillLogin(driver);
+    loginPage.fillPassword(driver);
     
-    //Fill login and password
-    driver.findElement(By.id("Email")).sendKeys("seleniumtest596");
-    driver.findElement(By.id("next")).click();
-    WebDriverWait wait = new WebDriverWait(driver, 10);
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Passwd")));
-    driver.findElement(By.id("Passwd")).sendKeys("selenium2017");
+    GmailHomePage homePage = loginPage.signIn(driver);
+    assertTrue(homePage.isAtPage(driver));
     
-    //Click sign in
-    driver.findElement(By.id("signIn")).click();
-    
-    //Verify user did sign in
-    wait.until(ExpectedConditions.visibilityOfElementLocated(SEARCH_ICON));
-    assertTrue(driver.findElement(SEARCH_ICON).isDisplayed());
-    
-    //Click Sign out
-    WebElement icon = driver.findElement(By.cssSelector("span[class='gb_8a gbii']"));
-    icon.click();
-    
-    WebElement signOutLink = driver.findElement(By.id("gb_71"));
-    signOutLink.click();
-    
-    wait.until(ExpectedConditions.visibilityOfElementLocated(SIGN_IN));
+    GmailLoginPage signOutPage = homePage.signOut(driver);
+    assertTrue(signOutPage.isAtPage(driver));
+  
   }
   
   /*@Test(dependsOnMethods={"gmailLoginSuccessful"})
