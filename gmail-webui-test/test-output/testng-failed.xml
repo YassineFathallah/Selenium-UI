@@ -7,7 +7,6 @@
         <methods>
           <include name="gmailSendAndReceiveEmailTest"/>
           <include name="tearDown"/>
-          <include name="gmailLoginSuccessful"/>
         </methods>
       </class> <!-- GmailSignInTest -->
     </classes>
