@@ -5,29 +5,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WebUtils;
 
 public class GmailLoginPage {
   
   public void fillLogin(WebDriver driver){
-    driver.findElement(By.id("Email")).sendKeys("seleniumtest596");
-    driver.findElement(By.id("next")).click();
+    WebUtils.sendKeys(driver, By.id("Email"), "seleniumtest596");
+    WebUtils.click(driver, By.id("next"));
   }
   
   public void fillPassword(WebDriver driver){
-    WebDriverWait wait = new WebDriverWait(driver, 10);
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Passwd")));
-    driver.findElement(By.id("Passwd")).sendKeys("selenium2017");
+    WebUtils.waitForElement(driver, By.id("Passwd"));
+    WebUtils.sendKeys(driver, By.id("Passwd"), "selenium2017");
   }
   
   public GmailHomePage signIn(WebDriver driver){
-    driver.findElement(By.id("signIn")).click();
-    WebDriverWait wait = new WebDriverWait(driver, 30);
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Boîte")));
+    WebUtils.click(driver, By.id("signIn"));
+    WebUtils.waitForElement(driver, By.partialLinkText("Boîte"));
     
     return PageFactory.initElements(driver, GmailHomePage.class);
   }
   
   public boolean isAtPage(WebDriver driver){
-    return driver.findElements(By.id("Email")).size() > 0;
+    return WebUtils.getElementsBy(driver, By.id("Email")).size() > 0;
   }
 }
