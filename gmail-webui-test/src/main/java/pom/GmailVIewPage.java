@@ -11,8 +11,4 @@ public class GmailVIewPage {
 		return subjectArea.getText();
 	}
 	
-	public String getEmailBodyText(WebDriver driver) {
-		WebElement bodyArea = driver.findElement(By.cssSelector("div[class='nH aHU'] div[dir='ltr']"));
-		return bodyArea.getText();
-	}
 }
